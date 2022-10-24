@@ -12,15 +12,15 @@
                 Senemontre
             </span>
         </h1>
-        <div class="flex p-6">
+        <div class="flex p-6 w-fluid">
             {% for p in products %}
-                <div class="flex-1 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                <div class="flex-1 h-2/6 mx-4 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                     <a href="#">
-                        <img class="rounded-t-lg" src="{{ p.mainPicture }}" alt="">
+                        <img class="h-2/6 w-full rounded-t-lg" src="{{ p.mainPicture }}" alt="">
                     </a>
                     <div class="p-5">
                         <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-400 dark:text-white">
+                            <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-400 dark:text-white">
                                 {{ p.name }} 
                             </h5>
                             <p class="text-red-500">
@@ -41,40 +41,36 @@
                 </div>
             {% endfor %}
         </div>
+       
+        {% include "shared/_spaceur.html.twig" with {
+            'title': 'Assurance'
+        } %}
 
-        <hr>
+       <div class="flex w-full p-5 mt-5">
+            {% include "shared/_assurance.html.twig" with {
+                'colorbg':  'red-500',
+                'colorborder': 'dark',
+                
+                'title': 'titre1',
+                'text': 'lorem1hzdkcbckj'
 
-       <div class="flex w-full">
-            <div class="flex-1 flex items-center">
-                {% include "shared/_assurance.html.twig" with {
-                    'colorbg':  'primary',
-                    'colorborder': 'dark',
-                    
-                    'title': 'titre1',
-                    'text': 'lorem1hzdkcbckj'
+            } %}
+            {% include "shared/_assurance.html.twig" with {
+                'colorbg':  'primary',
+                'colorborder': 'dark',
+                
+                'title': 'titre1',
+                'text': 'lorem1hzdkcbckj'
 
-                } %}
-            <div>
-            <div class="flex-1 flex items-center">
-                {% include "shared/_assurance.html.twig" with {
-                    'colorbg':  'primary',
-                    'colorborder': 'dark',
-                    
-                    'title': 'titre1',
-                    'text': 'lorem1hzdkcbckj'
+            } %}
+            {% include "shared/_assurance.html.twig" with {
+                'colorbg':  'primary',
+                'colorborder': 'dark',
+                
+                'title': 'titre1',
+                'text': 'lorem1hzdkcbckj'
 
-                } %}
-            <div>
-            <div class="flex-1 flex items-center">
-                {% include "shared/_assurance.html.twig" with {
-                    'colorbg':  'primary',
-                    'colorborder': 'dark',
-                    
-                    'title': 'titre1',
-                    'text': 'lorem1hzdkcbckj'
-
-                } %}
-            <div>
+            } %}
        </div>
 
     {% endblock %}
