@@ -6,39 +6,33 @@
 
     {% block body %}
         
-        <h1 class="flex items-center text-5xl font-extrabold dark:text-white">
+        <h1 class="text-center text-5xl font-extrabold dark:text-white">
             Nos Produits phares
             <span class="bg-blue-100 text-blue-800 text-2xl font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-2">
                 Senemontre
             </span>
         </h1>
-        <div class="flex p-6 w-fluid">
+        <div class="flex ml-12  w-11/12 content-center mt-20 flex-wrap justify-between">
             {% for p in products %}
-                <div class="flex-1 h-2/6 mx-4 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                    <a href="#">
-                        <img class="h-2/6 w-full rounded-t-lg" src="{{ p.mainPicture }}" alt="">
-                    </a>
-                    <div class="p-5">
-                        <a href="#">
-                            <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-400 dark:text-white">
-                                {{ p.name }} 
-                            </h5>
-                            <p class="text-red-500">
-                               ({{p.price}}) FCFA
-                            </p>
-                        </a>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                            {{ p.shortDescription }}
+               
+                <div class="max-w-xs  bg-white shadow-lg rounded-lg overflow-hidden my-10">
+                    <div class="px-4 py-2">
+                        <h1 class="text-gray-900 font-bold text-3xl uppercase">
+                            {{ p.name |u.truncate(10) }}
+                        </h1>
+                        <p class="text-gray-600 text-sm mt-1">
+                            {{ p.shortDescription | u.truncate(120) }}
                         </p>
-                        <p class="mt-3 font-normal text-gray-700 dark:text-gray-400">
-                            {{ p.category.name }}
-                        </p>
-                        <a href="#" class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Read more
-                            <svg aria-hidden="true" class="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                        </a>
+                    </div>
+                    <img class="h-56 w-full object-cover mt-2" src="{{ p.mainPicture }}" alt="NIKE AIR">
+                    <div class="flex items-center justify-between px-4 py-2 bg-gray-900">
+                        <h1 class="text-gray-200 font-bold text-xl">
+                            {{ p.price }}
+                        </h1>
+                        <button class="px-3 py-1 bg-gray-200 text-sm text-gray-900 font-semibold rounded">Add to card</button>
                     </div>
                 </div>
+
             {% endfor %}
         </div>
        
