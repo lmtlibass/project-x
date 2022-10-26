@@ -4,18 +4,22 @@
         Accueil
     {% endblock %}
 
+    {% block header %}         
+        {% include "shared/_header.html.twig" %}
+    {% endblock %}
+
     {% block body %}
-        
+         
         <h1 class="text-center text-5xl font-extrabold dark:text-white">
             Nos Produits phares
             <span class="bg-blue-100 text-blue-800 text-2xl font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-2">
                 Senemontre
             </span>
         </h1>
-        <div class="flex ml-12  w-11/12 content-center mt-20 flex-wrap justify-between">
+        <div class="flex ml-12  w-11/12 content-center mt-5 flex-wrap justify-between">
             {% for p in products %}
                
-                <div class="max-w-xs  bg-white shadow-lg rounded-lg overflow-hidden my-10">
+                <a href="{{ path('product_show', { 'category_slug': p.category.slug, 'slug': p.slug }) }}" class="max-w-xs  bg-white shadow-lg rounded-lg overflow-hidden my-10">
                     <div class="px-4 py-2">
                         <h1 class="text-gray-900 font-bold text-3xl uppercase">
                             {{ p.name |u.truncate(10) }}
@@ -29,9 +33,10 @@
                         <h1 class="text-gray-200 font-bold text-xl">
                             {{ p.price }}
                         </h1>
-                        <button class="px-3 py-1 bg-gray-200 text-sm text-gray-900 font-semibold rounded">Add to card</button>
+                        <button class="px-3 py-1 bg-gray-200 text-sm text-gray-900 font-semibold rounded">
+                            Ajouter au panier</button>
                     </div>
-                </div>
+                </a>
 
             {% endfor %}
         </div>

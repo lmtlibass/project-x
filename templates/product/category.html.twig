@@ -5,15 +5,33 @@
     {{slug}}
 {% endblock %}
 
-{% block body %}
-        <h1>categorie : {{category.name}}</h1>
+{% block header %}         
+    {% include "shared/_navbar.html.twig" %}
+{% endblock %}
 
-    <div class="flex flex-wrap">  
+{% block body %}
+    <div class="text-black font-bold my-8" aria-label="Breadcrumb">
+        <ol class="list-none p-0 inline-flex">
+            <li class="flex items-center">
+                <a href="{{ path('home') }}">Accueil</a>
+                <svg class="fill-current w-3 h-3 mx-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg>
+            </li>
+            <li class="flex items-center">
+                <a href="{{ path('product_category', {'slug': category.slug}) }}">{{category.name}}</a>
+                <svg class="fill-current w-3 h-3 mx-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg>
+            </li>
+        
+        </ol>
+    </div>
+
+    <h1>categorie : {{category.name}}</h1>
+
+    <div class="flex flex-wrap ml-3">  
         {% for product in category.products %}
             
-            <div class="flex-1 relative max-w-sm min-w-[340px] bg-white shadow-md rounded-3xl p-2 mx-1 my-3 cursor-pointer">
-                <div class="overflow-x-hidden rounded-2xl relative">
-                    <img class="h-40 rounded-2xl w-full object-cover" src="{{ product.mainPicture }}">
+            <a href="{{ path('product_show', { 'category_slug': product.category.slug, 'slug': product.slug  } ) }}" class="flex-1 relative max-w-sm min-w-[330px] bg-white shadow-md rounded-xl p-2 mx-1 my-3 cursor-pointer">
+                <div class="overflow-x-hidden rounded-xl relative">
+                    <img class="h-40 rounded-xl w-full object-cover" src="{{ product.mainPicture }}">
                     <p class="absolute right-2 top-2 bg-white rounded-full p-2 cursor-pointer group">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:opacity-50 opacity-70" fill="none" viewBox="0 0 24 24" stroke="black">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -31,7 +49,7 @@
                         </svg>
                     </div>
                 </div>
-            </div>
+            </a>
 
         {% endfor %}
     </div>

@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProductController extends AbstractController
 {
+    //Afficher les produits par catégorie
     #[Route('/{slug}', name: 'product_category')]
     public function category($slug, CategoryRepository $categoryRepository): Response
     {   
@@ -27,6 +28,7 @@ class ProductController extends AbstractController
         ]);
     }
 
+    //Afficher les details d'un produit
     #[Route('/{category_slug}/{slug}', name: 'product_show')]
     public function show($slug, ProductRepository $productRepository){
 
