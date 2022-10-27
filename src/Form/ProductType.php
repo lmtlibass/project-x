@@ -20,7 +20,6 @@ class ProductType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'attr' => [
-                    'label' => 'Nom du prosuit',
                     'placeholder' => 'donner une couter description du produit'
             ]
             ])

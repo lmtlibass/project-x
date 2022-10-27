@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Product;
+use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManager;
@@ -60,13 +61,11 @@ class ProductController extends AbstractController
 
     }
 
-    //Page ajouter un nouveau produit
+    //ajouter un nouveau produit
     #[Route('/admin/product/create', name:'product_create')]
     public function create(FormFactoryInterface $factory, Request $request, SluggerInterface $sluggger, EntityManagerInterface $em){
         
-        $builder = $factory->createBuilder(FormType::class);
-   
-        $form = $builder->getForm();
+        $form = $this->createForm(ProductType::class);
 
         $form->handleRequest($request);
         if($form->isSubmitted()){
@@ -78,12 +77,21 @@ class ProductController extends AbstractController
             dd($product);
         }
 
-
-
         $formView = $form->createView();
 
         return $this->render('product/create.html.twig', [
             'formView' => $formView
         ]);
     }
+
+    //editer un produit
+    #[Route('admin/product/{id}/edit', name: 'product_edit')]
+    public function edit($id, ProductRepository $productRepository){
+        $product = $productRepository->find($id);
+
+        return $this->render('product/edit.html.twig', [
+            'product' => $product
+        ]);
+    }
+
 }
