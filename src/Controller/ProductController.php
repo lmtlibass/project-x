@@ -6,6 +6,8 @@ use App\Entity\Category;
 use App\Entity\Product;
 use App\Repository\ProductRepository;
 use App\Repository\CategoryRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -14,7 +16,10 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ProductController extends AbstractController
 {
@@ -57,45 +62,19 @@ class ProductController extends AbstractController
 
     //Page ajouter un nouveau produit
     #[Route('/admin/product/create', name:'product_create')]
-    public function create(FormFactoryInterface $factory, Request $request){
+    public function create(FormFactoryInterface $factory, Request $request, SluggerInterface $sluggger, EntityManagerInterface $em){
         
-        $builder = $factory->createBuilder();
-
-        $builder->add('name', TextType::class, [
-            'attr' => [
-                'placeholder' => 'donner une couter description du produit'
-            ]
-            ])
-            ->add('shortDescription', TextareaType::class, [
-                'attr' => [
-                    'placeholder' => 'donner une couter description du produit'
-                ]
-            ])
-            ->add('price', MoneyType::class, [
-                'attr' => [
-                    'placeholder' => 'donez le prix du produit'
-                ]
-            ])
-            ->add('category', EntityType::class, [
-                'attr' => [
-                    'placeholder' => 'choisir une catégorie'
-                ],
-                'class'       => Category::class,
-                'choice_label'=> 'name'
-            ]);
-        
+        $builder = $factory->createBuilder(FormType::class);
+   
         $form = $builder->getForm();
 
-        //gerer les request (données saisies)
         $form->handleRequest($request);
         if($form->isSubmitted()){
-            $data = $form->getData();
-        
-            $product = new Product;
-            $product->setName($data['name'])
-                    ->setShortDescription($data['shortDescription'])
-                    ->setPrice($data['price'])
-                    ->setCategory($data['category']);
+            $product = $form->getData();
+            $product->setSlug(strtolower($sluggger->slug($product->getName())));
+
+            $em->persist($product);
+            $em->flush();
             dd($product);
         }
 

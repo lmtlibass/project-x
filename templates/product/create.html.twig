@@ -18,9 +18,10 @@
     {{ form_errors(formView) }}
 
     <div class="grid grid-rows-3 grid-flow-col gap-4">
-        <div class="row-span-3">
+        <div class="row-span-3">  
             {{ form_row(formView.name) }}
             {{ form_row(formView.price) }}
+            {{ form_row(formView.mainPicture) }}
         </div>
         <div class="row-span-3">
             {{ form_row(formView.category) }}
