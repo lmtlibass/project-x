@@ -40,11 +40,23 @@ class CategoryController extends AbstractController
     }
 
     #[Route('admin/category/{id}/edit')]
-    public function edit($id, CategoryRepository $categoryRepository){
+    public function edit($id, CategoryRepository $categoryRepository, Request $request, EntityManagerInterface $em, SluggerInterface $slugger){
         $category = $categoryRepository->find($id);
 
+        $form = $this->createForm(CategoryType::class, $category);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted()){
+            $category = $form->getData();
+            $category->setSlug(strtolower($slugger->slug($category->getName())));
+            $em->flush();
+            dd($category);
+        }
+
+        $formView  = $form->createView();
         return $this->render('category/edit.html.twig',[
-            'category' => $category
+            'category' => $category,
+            'formView' => $formView
         ]);
     }
 }
