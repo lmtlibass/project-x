@@ -63,7 +63,7 @@ class ProductController extends AbstractController
 
     //ajouter un nouveau produit
     #[Route('/admin/product/create', name:'product_create')]
-    public function create(FormFactoryInterface $factory, Request $request, SluggerInterface $sluggger, EntityManagerInterface $em){
+    public function create(Request $request, SluggerInterface $sluggger, EntityManagerInterface $em){
         
         $form = $this->createForm(ProductType::class);
 
