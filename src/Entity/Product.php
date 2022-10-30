@@ -2,9 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ProductRepository;
+
+
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -15,9 +18,17 @@ class Product
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "le nom du produit est obligatoire")]
+    #[Assert\Length(
+        min: 3,
+        max: 255,
+        minMessage: 'Le nom d\'un produit doit avoir {{ min }} characters',
+        maxMessage: 'Le nom d\'un produit ne doit pas dépasser {{ max }} characters',
+    )]
     private ?string $name = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'le prix du produit est obligatoire')]
     private ?int $price = null;
 
     #[ORM\Column(length: 255)]
@@ -54,7 +65,7 @@ class Product
         return $this->price;
     }
 
-    public function setPrice(int $price): self
+    public function setPrice(?int $price): self
     {
         $this->price = $price;
 

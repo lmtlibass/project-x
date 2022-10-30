@@ -68,7 +68,7 @@ class ProductController extends AbstractController
         $form = $this->createForm(ProductType::class);
 
         $form->handleRequest($request);
-        if($form->isSubmitted()){
+        if($form->isSubmitted() && $form->isValid()){
             $product = $form->getData();
             $product->setSlug(strtolower($sluggger->slug($product->getName())));
 
@@ -96,7 +96,7 @@ class ProductController extends AbstractController
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted()){
+        if($form->isSubmitted() && $form->isValid()){
             $em->flush();
 
             return $this->redirectToRoute('product_show', [
