@@ -20,21 +20,21 @@ class ProductType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'attr' => [
-                    'placeholder' => 'donner une couter description du produit',
-                    'required' => false
-            ]
+                    'placeholder' => 'donner une couter description du produit',        
+            ],
+            'required' => false,
             ])
             ->add('shortDescription', TextareaType::class, [
                 'attr' => [
-                    'placeholder' => 'donner une couter description du produit',
-                    'required' => false
-                ]
+                    'placeholder' => 'donner une couter description du produit',        
+                ],
+                'required' => false,
             ])
             ->add('price', MoneyType::class, [
                 'attr' => [
-                    'placeholder' => 'donez le prix du produit',
-                    'required' => false
-                ]
+                    'placeholder' => 'donez le prix du produit',        
+                ],
+                'required' => false,
             ])
             ->add('mainPicture', UrlType::class, [
                 'attr' => [

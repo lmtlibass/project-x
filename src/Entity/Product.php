@@ -6,7 +6,6 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ProductRepository;
 
-
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
@@ -41,6 +40,7 @@ class Product
     private ?string $mainPicture = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message: 'la description du produit est obligatoire')]
     private ?string $shortDescription = null;
 
     public function getId(): ?int
